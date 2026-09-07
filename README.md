@@ -1,1 +1,0 @@
-# Bar-La-Parada
