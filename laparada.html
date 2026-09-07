@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar La Parada — Morés, Zaragoza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Karla:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#5A2A27;
+    --wine-dk:#3D1C1A;
+    --olive:#6B7A3D;
+    --mustard:#D9A441;
+    --stone:#EDE6D6;
+    --ink:#2B2420;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--stone);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 26px;}
+
+  /* zig-zag divider — signature element, evoca las baldosas de bar de pueblo */
+  .tile-strip{
+    height:16px;width:100%;
+    background:
+      linear-gradient(135deg, var(--mustard) 25%, transparent 25.5%) 0 0/16px 16px,
+      linear-gradient(-135deg, var(--mustard) 25%, transparent 25.5%) 0 0/16px 16px,
+      var(--wine);
+    background-color:var(--wine);
+  }
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 26px;
+    background:rgba(58,28,26,0.94);
+    color:var(--stone);
+  }
+  .brand{font-family:'Fraunces';font-weight:700;font-size:1.1rem;}
+  .brand span{color:var(--mustard);}
+  .navlinks{display:none;gap:26px;font-size:0.82rem;font-weight:500;}
+  @media(min-width:740px){.navlinks{display:flex;}}
+  .navlinks a{opacity:0.85;}
+  .navlinks a:hover{opacity:1;color:var(--mustard);}
+  .nav-cta{
+    font-family:'Space Mono';font-size:0.76rem;font-weight:700;
+    background:var(--mustard);color:var(--wine-dk);
+    padding:9px 16px;border-radius:3px;
+  }
+
+  .hero{
+    background:
+      radial-gradient(ellipse 700px 420px at 85% 0%, rgba(107,122,61,0.25), transparent 60%),
+      var(--wine);
+    color:var(--stone);
+    padding:150px 26px 90px;
+  }
+  .eyebrow{font-family:'Space Mono';font-size:0.74rem;color:var(--mustard);margin-bottom:20px;letter-spacing:0.03em;}
+  .hero h1{font-size:clamp(2.6rem,7.5vw,4.8rem);font-weight:900;line-height:1.0;max-width:760px;}
+  .hero h1 i{font-style:italic;font-weight:500;color:var(--mustard);}
+  .hero p.lead{max-width:480px;margin-top:22px;font-size:1.05rem;color:rgba(237,230,214,0.82);}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px;}
+  .chip{font-family:'Space Mono';font-size:0.68rem;border:1px solid rgba(237,230,214,0.3);padding:6px 13px;border-radius:100px;color:rgba(237,230,214,0.85);}
+  .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .btn{padding:13px 24px;border-radius:3px;font-weight:700;font-size:0.87rem;display:inline-block;}
+  .btn-primary{background:var(--mustard);color:var(--wine-dk);}
+  .btn-ghost{border:1px solid rgba(237,230,214,0.35);color:var(--stone);}
+
+  section{padding:80px 0;}
+  .kicker{font-family:'Space Mono';font-size:0.74rem;color:var(--wine);opacity:0.7;margin-bottom:12px;display:block;letter-spacing:0.02em;}
+  .section-head h2{font-size:clamp(1.8rem,4.2vw,2.6rem);font-weight:700;max-width:600px;margin-bottom:16px;}
+  .section-head p{max-width:520px;opacity:0.75;font-size:1rem;}
+
+  .about-grid{display:grid;grid-template-columns:1fr;gap:36px;margin-top:44px;}
+  @media(min-width:740px){.about-grid{grid-template-columns:1.2fr 0.8fr;}}
+  .about-copy p{margin-bottom:16px;opacity:0.82;}
+  .fact-card{background:var(--wine);color:var(--stone);border-radius:6px;padding:28px;}
+  .fact-card h3{font-size:1rem;margin-bottom:14px;color:var(--mustard);}
+  .fact-card ul{list-style:none;}
+  .fact-card li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(237,230,214,0.15);font-size:0.86rem;}
+  .fact-card li:last-child{border-bottom:none;}
+  .fact-card li b{font-weight:600;}
+
+  .menu-section{background:var(--wine);color:var(--stone);}
+  .menu-section .kicker{color:var(--mustard);opacity:1;}
+  .menu-section .section-head p{color:rgba(237,230,214,0.7);}
+  .menu-grid{display:grid;grid-template-columns:1fr;gap:0;margin-top:44px;}
+  @media(min-width:700px){.menu-grid{grid-template-columns:1fr 1fr;gap:0 50px;}}
+  .menu-col h3{font-size:1.1rem;color:var(--mustard);margin-bottom:4px;}
+  .menu-note{font-family:'Space Mono';font-size:0.68rem;color:rgba(237,230,214,0.5);display:block;margin-bottom:20px;}
+  .dish{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid rgba(237,230,214,0.14);}
+  .dish-name{font-weight:600;font-size:0.97rem;}
+  .dish-desc{opacity:0.6;font-size:0.82rem;margin-top:3px;}
+  .dish-price{font-family:'Space Mono';color:var(--mustard);white-space:nowrap;}
+
+  .loc-grid{display:grid;grid-template-columns:1fr;gap:26px;margin-top:44px;}
+  @media(min-width:740px){.loc-grid{grid-template-columns:1fr 1fr;}}
+  .loc-card{border:1px solid rgba(58,28,26,0.18);border-radius:6px;padding:26px;}
+  .loc-card h3{font-size:0.95rem;margin-bottom:6px;color:var(--wine);}
+  .loc-card p{opacity:0.75;font-size:0.92rem;margin-bottom:4px;}
+  .loc-card .fill-note{
+    font-family:'Space Mono';font-size:0.72rem;color:var(--olive);
+    background:rgba(107,122,61,0.12);border:1px dashed var(--olive);
+    padding:8px 12px;border-radius:4px;display:inline-block;margin-top:6px;
+  }
+  .map-block{
+    border-radius:6px;min-height:230px;background:var(--olive);color:var(--stone);
+    display:flex;align-items:flex-end;padding:22px;position:relative;overflow:hidden;
+  }
+  .map-block::before{
+    content:"";position:absolute;inset:0;opacity:0.15;
+    background:repeating-linear-gradient(45deg, var(--mustard) 0 2px, transparent 2px 22px);
+  }
+  .map-pin{font-family:'Space Mono';font-size:0.75rem;background:var(--mustard);color:var(--wine-dk);padding:8px 14px;border-radius:4px;font-weight:700;position:relative;z-index:1;}
+
+  .reviews{display:grid;grid-template-columns:1fr;gap:20px;margin-top:44px;}
+  @media(min-width:740px){.reviews{grid-template-columns:repeat(2,1fr);}}
+  .review{border:1px solid rgba(58,28,26,0.16);border-radius:6px;padding:24px;}
+  .stars{color:var(--mustard);margin-bottom:12px;font-size:0.9rem;}
+  .review p{font-size:0.9rem;opacity:0.82;margin-bottom:14px;}
+  .review-who{font-family:'Space Mono';font-size:0.7rem;opacity:0.5;}
+
+  .cta-section{
+    background:var(--wine);color:var(--stone);border-radius:10px;
+    padding:56px 36px;text-align:center;max-width:1000px;margin:0 auto;
+  }
+  .cta-section h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:12px;}
+  .cta-section p{opacity:0.75;max-width:440px;margin:0 auto 26px;}
+  .cta-section .fill-note{
+    font-family:'Space Mono';font-size:0.72rem;color:var(--mustard);
+    border:1px dashed rgba(217,164,65,0.5);padding:9px 14px;border-radius:4px;display:inline-block;
+  }
+
+  footer{padding:50px 26px 34px;background:var(--wine-dk);color:rgba(237,230,214,0.6);}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px;max-width:1060px;margin:0 auto;}
+  .foot-grid h4{font-family:'Fraunces';color:var(--stone);font-size:0.95rem;margin-bottom:8px;}
+  .foot-grid p,.foot-grid a{font-size:0.82rem;display:block;margin-bottom:5px;}
+  .foot-bottom{
+    max-width:1060px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(237,230,214,0.12);
+    font-family:'Space Mono';font-size:0.7rem;opacity:0.4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">LA <span>PARADA</span></div>
+  <div class="navlinks">
+    <a href="#nosotros">Nosotros</a>
+    <a href="#carta">Carta</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#opiniones">Opiniones</a>
+  </div>
+  <a href="#ubicacion" class="nav-cta">Cómo llegar</a>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">AVDA. FRANCISCA GIL, 8 · MORÉS, ZARAGOZA</div>
+  <h1>Bar de pueblo,<br>tapa de <i>verdad</i></h1>
+  <p class="lead">Un bar familiar en el corazón de Morés: barra de tapas bien puestas, trato cercano y la sencillez de toda la vida, sin postureo.</p>
+  <div class="chips">
+    <span class="chip">TAPAS CASERAS</span>
+    <span class="chip">TRATO FAMILIAR</span>
+    <span class="chip">TERRAZA</span>
+    <span class="chip">PRECIO JUSTO</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="#carta" class="btn btn-primary">Ver la carta</a>
+    <a href="#ubicacion" class="btn btn-ghost">Cómo llegar</a>
+  </div>
+</div>
+<div class="tile-strip"></div>
+
+<section id="nosotros">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// SOBRE LA PARADA</span>
+      <h2>El bar de siempre, hecho bien</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>La Parada es de esos bares de pueblo que ya casi no quedan: limpio, cuidado, y con la comida servida con esmero. No hay cartas kilométricas ni fuegos artificiales — hay tapas bien hechas y un trato que se nota.</p>
+        <p>La casa se ha ganado fama por sus torreznos y sus huevos rotos con foie, además de una terraza tranquila para tomar algo con calma.</p>
+        <p>Un sitio pequeño, sin pretensiones, donde se come y se trata bien — y eso, en un pueblo, se agradece.</p>
+      </div>
+      <div class="fact-card">
+        <h3>DATOS RÁPIDOS</h3>
+        <ul>
+          <li><span>Ubicación</span><b>Morés, Zaragoza</b></li>
+          <li><span>Ambiente</span><b>Bar familiar</b></li>
+          <li><span>Especialidad</span><b>Torreznos y tapas</b></li>
+          <li><span>Exterior</span><b>Terraza</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tile-strip"></div>
+
+<section class="menu-section" id="carta">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// LA CARTA</span>
+      <h2>Cocina casera para sentirse en casa</h2>
+      <p>Torreznos, tostas, huevos rotos y raciones de siempre — con menú de fin de semana y menú del día entre semana.</p>
+    </div>
+    <span class="mono" style="display:inline-block;margin:8px 0 10px;font-size:0.72rem;color:var(--mustard);border:1px dashed rgba(217,164,65,0.5);padding:8px 14px;border-radius:4px;">🗓️ Fines de semana: carta completa · Entre semana: menú del día (dos primeros y dos segundos a elegir)</span>
+
+    <div class="menu-grid">
+      <div class="menu-col">
+        <h3>Especialidades</h3>
+        <span class="menu-note">Los platos con más carácter de la casa</span>
+        <div class="dish"><div><div class="dish-name">Cachopo</div><div class="dish-desc">Con patatas fritas caseras y salsa de pimiento</div></div><div class="dish-price">14,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Tosta especial</div><div class="dish-desc">Solomillo y foie con patatas panaderas caseras y salsa de módena</div></div><div class="dish-price">10,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Sepia</div><div class="dish-desc">Con patatas fritas caseras y ensalada</div></div><div class="dish-price">12,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Pata de pulpo</div><div class="dish-desc">Con parmentier de patata y patatas fritas caseras</div></div><div class="dish-price">16,00€</div></div>
+      </div>
+      <div class="menu-col">
+        <h3>Tostadas</h3>
+        <span class="menu-note">Todas a 6,50€</span>
+        <div class="dish"><div><div class="dish-name">Nórdica</div><div class="dish-desc">Salmón ahumado, bacalao ahumado, mayonesa, pepinillo y piquillo</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Cantábrica</div><div class="dish-desc">Atún, anchoas y pimiento de piquillo</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Bacon</div><div class="dish-desc">Champiñones, cebolla y queso</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Jamón York</div><div class="dish-desc">Queso roquefort y mozzarella gratinada</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Jamón serrano</div><div class="dish-desc">Ruedas de tomate, queso de cabra y pimiento verde</div></div><div class="dish-price">6,50€</div></div>
+      </div>
+    </div>
+
+    <div class="menu-grid" style="margin-top:20px;">
+      <div class="menu-col">
+        <h3>Platos combinados</h3>
+        <span class="menu-note">Todos con patatas fritas caseras, huevos y pimientos · 10,00€</span>
+        <div class="dish"><div><div class="dish-name">Pechugas</div></div><div class="dish-price">10,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Lomo</div></div><div class="dish-price">10,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Hamburguesa</div></div><div class="dish-price">10,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Jamón y foie</div></div><div class="dish-price">10,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Gulas</div></div><div class="dish-price">10,00€</div></div>
+      </div>
+      <div class="menu-col">
+        <h3>Huevos rotos</h3>
+        <span class="menu-note">Con patatas fritas caseras, huevos y pimientos</span>
+        <div class="dish"><div><div class="dish-name">Jamón y foie</div></div><div class="dish-price">15,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Longaniza</div></div><div class="dish-price">11,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Bacon</div></div><div class="dish-price">11,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Solomillo</div></div><div class="dish-price">11,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Chorizo</div></div><div class="dish-price">11,00€</div></div>
+      </div>
+    </div>
+
+    <div class="menu-grid" style="margin-top:20px;">
+      <div class="menu-col">
+        <h3>Raciones</h3>
+        <span class="menu-note">Para compartir en la barra o en la mesa</span>
+        <div class="dish"><div><div class="dish-name">Bravas</div></div><div class="dish-price">5,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Torreznos</div><div class="dish-desc">La especialidad de la casa</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Puntillas</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Calamares / rabas</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Croquetas (5 uds)</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Delicias caseras de pollo</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Mejillones a la marinera</div></div><div class="dish-price">8,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Gambas al ajillo (10 uds)</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Oreja / morro / callos / madejas</div></div><div class="dish-price">7,50€</div></div>
+      </div>
+      <div class="menu-col">
+        <h3>Bocadillos</h3>
+        <span class="menu-note">Pan viena, salvo que se indique otro</span>
+        <div class="dish"><div><div class="dish-name">Pechugas empanadas</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Lomo</div><div class="dish-desc">Bacon y huevo</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Solomillo</div><div class="dish-desc">Queso de rulo, bacon y cebolla caramelizada</div></div><div class="dish-price">8,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Madejas</div><div class="dish-desc">Lingote crunch de camembert y salsa molinete</div></div><div class="dish-price">7,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Sestricana</div><div class="dish-desc">Cerdo ibérico, virutas de torrezno, pepinillo y cebolla caramelizada</div></div><div class="dish-price">8,50€</div></div>
+      </div>
+    </div>
+
+    <div class="menu-grid" style="margin-top:20px;">
+      <div class="menu-col">
+        <h3>Hamburguesas y ensaladas</h3>
+        <span class="menu-note">De cerdo ibérico</span>
+        <div class="dish"><div><div class="dish-name">Especial</div><div class="dish-desc">Cebolla caramelizada, bacon y rulo de cabra</div></div><div class="dish-price">8,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Completa</div><div class="dish-desc">Lechuga, tomate, queso, bacon y huevo</div></div><div class="dish-price">8,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Ensalada César</div></div><div class="dish-price">8,00€</div></div>
+        <div class="dish"><div><div class="dish-name">Ensalada ventresca / ahumados</div></div><div class="dish-price">8,00€</div></div>
+      </div>
+      <div class="menu-col">
+        <h3>Postres</h3>
+        <span class="menu-note">Todos a 6,50€</span>
+        <div class="dish"><div><div class="dish-name">Tartas caseras</div><div class="dish-desc">Elaboradas con cariño — consultar opciones del día</div></div><div class="dish-price">6,50€</div></div>
+        <div class="dish"><div><div class="dish-name">Helados</div><div class="dish-desc">Según disponibilidad</div></div><div class="dish-price">6,50€</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tile-strip"></div>
+
+<section id="ubicacion">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// CÓMO LLEGAR</span>
+      <h2>En el centro de Morés</h2>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <h3>DIRECCIÓN</h3>
+        <p>Avenida de Francisca Gil, 8</p>
+        <p>50240 Morés, Zaragoza</p>
+        <h3 style="margin-top:22px;">CONTACTO</h3>
+        <span class="fill-note">📞 Añadir teléfono del local</span>
+      </div>
+      <div class="map-block">
+        <span class="map-pin">📍 Avda. Francisca Gil, 8 · Morés</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tile-strip"></div>
+
+<section id="opiniones">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// OPINIONES</span>
+      <h2>Lo que dicen los clientes</h2>
+    </div>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Un bar familiar, limpio y agradable, con tapas y tostas bien presentadas — los torreznos y las patatas bravas, lo más destacado.</p>
+        <div class="review-who">— Reseña en Tripadvisor</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Precio justo y un trato excelente: un sitio pequeño pero con muy buena comida casera.</p>
+        <div class="review-who">— Reseña en Tripadvisor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-section">
+      <h2>Pásate por La Parada</h2>
+      <p>El bar de toda la vida, en el centro de Morés. Te esperamos en la barra o en la terraza.</p>
+      <div class="hero-ctas" style="justify-content:center;">
+        <span class="fill-note">📞 Añadir teléfono para reservas/llamadas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h4>BAR LA PARADA</h4>
+      <p>Bar de pueblo, tapa de verdad</p>
+      <p>Morés, Zaragoza</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p class="mono" style="opacity:0.5;">Teléfono pendiente de añadir</p>
+    </div>
+    <div>
+      <h4>Dirección</h4>
+      <p>Avda. Francisca Gil, 8</p>
+      <p>50240 Morés, Zaragoza</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Bar La Parada</span>
+    <span>Morés, Zaragoza, España</span>
+  </div>
+</footer>
+
+</body>
+</html>
